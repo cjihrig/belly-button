@@ -1,0 +1,39 @@
+{
+  "name": "belly-button",
+  "version": "0.1.0",
+  "description": "Continuation Labs linter",
+  "author": "Continuation Labs <contact@continuation.io> (http://continuation.io/)",
+  "main": "lib/index.js",
+  "homepage": "https://github.com/continuationlabs/belly-button",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/continuationlabs/belly-button.git"
+  },
+  "bugs": {
+    "url": "https://github.com/continuationlabs/belly-button/issues"
+  },
+  "license": "MIT",
+  "bin": {
+    "scrabel": "./bin/belly-button.js"
+  },
+  "scripts": {
+    "test": "lab -v -t 100 -a code"
+  },
+  "dependencies": {
+    "eslint": "1.x.x",
+    "glob": "5.x.x",
+    "insync": "2.x.x"
+  },
+  "devDependencies": {
+    "code": "1.x.x",
+    "lab": "6.x.x"
+  },
+  "keywords": [
+    "belly-button",
+    "belly button",
+    "lint",
+    "linter",
+    "eslint",
+    "style"
+  ]
+}
