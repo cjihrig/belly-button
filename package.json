@@ -1,6 +1,6 @@
 {
   "name": "belly-button",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Continuation Labs linter",
   "author": "Continuation Labs <contact@continuation.io> (http://continuation.io/)",
   "main": "lib/index.js",
@@ -20,6 +20,7 @@
     "test": "lab -v -t 100 -a code"
   },
   "dependencies": {
+    "bossy": "2.x.x",
     "eslint": "1.x.x",
     "glob": "5.x.x",
     "insync": "2.x.x"
