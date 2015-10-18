@@ -3,7 +3,7 @@
   "version": "0.3.0",
   "description": "Continuation Labs linter",
   "author": "Continuation Labs <contact@continuation.io> (http://continuation.io/)",
-  "main": "lib/index.js",
+  "main": "lib/cli.js",
   "homepage": "https://github.com/continuationlabs/belly-button",
   "repository": {
     "type": "git",
