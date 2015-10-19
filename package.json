@@ -21,13 +21,15 @@
   },
   "dependencies": {
     "bossy": "2.x.x",
+    "chalk": "1.1.x",
     "eslint": "1.x.x",
     "glob": "5.x.x",
     "insync": "2.x.x"
   },
   "devDependencies": {
     "code": "1.x.x",
-    "lab": "6.x.x"
+    "lab": "6.x.x",
+    "stand-in": "3.x.x"
   },
   "keywords": [
     "belly-button",
