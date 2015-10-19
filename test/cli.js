@@ -1,4 +1,5 @@
 'use strict';
+var ChildProcess = require('child_process');
 var Path = require('path');
 var Code = require('code');
 var ESLint = require('eslint');
@@ -19,9 +20,10 @@ var fixturesDirectory = Path.join(__dirname, 'fixtures');
 describe('Belly Button CLI', function() {
   describe('run()', function() {
     it('successfully lints files', function(done) {
-      Cli.run(['-w', fixturesDirectory], function(err, output) {
+      Cli.run(['-w', fixturesDirectory], function(err, output, exitCode) {
         expect(err).to.not.exist();
         expect(output).to.exist();
+        expect(exitCode).to.equal(0);
         done();
       });
     });
@@ -29,9 +31,10 @@ describe('Belly Button CLI', function() {
     it('fixes linting errors when possible', function(done) {
       // TODO: Improve this test to verify that fixes actually occur.
       // Create a temp copy of a bad file and fix it
-      Cli.run(['-w', fixturesDirectory, '-f'], function(err, output) {
+      Cli.run(['-w', fixturesDirectory, '-f'], function(err, output, exitCode) {
         expect(err).to.not.exist();
         expect(output).to.exist();
+        expect(exitCode).to.equal(0);
         done();
       });
     });
@@ -44,18 +47,20 @@ describe('Belly Button CLI', function() {
         return fixturesDirectory;
       };
 
-      Cli.run([], function(err, output) {
+      Cli.run([], function(err, output, exitCode) {
         expect(err).to.not.exist();
         expect(output).to.exist();
+        expect(exitCode).to.equal(0);
         done();
       });
     });
 
     it('rejects unknown options', function(done) {
-      Cli.run(['--foo'], function(err, output) {
-        expect(err).to.exist();
-        expect(err).to.match(/Unknown option: foo/);
+      Cli.run(['--foo'], function(err, output, exitCode) {
+        expect(err instanceof Error).to.equal(true);
+        expect(err.message).to.match(/Unknown option: foo/);
         expect(output).to.not.exist();
+        expect(exitCode).to.not.exist();
         done();
       });
     });
@@ -68,9 +73,11 @@ describe('Belly Button CLI', function() {
         throw new Error('executeOnFiles');
       };
 
-      Cli.run(['-w', fixturesDirectory], function(err, output) {
-        expect(err).to.equal('executeOnFiles');
+      Cli.run(['-w', fixturesDirectory], function(err, output, exitCode) {
+        expect(err instanceof Error).to.equal(true);
+        expect(err.message).to.equal('executeOnFiles');
         expect(output).to.not.exist();
+        expect(exitCode).to.not.exist();
         done();
       });
     });
@@ -83,10 +90,39 @@ describe('Belly Button CLI', function() {
         this.emit('error', new Error('glob'));
       };
 
-      Cli.run(['-w', fixturesDirectory], function(err, output) {
+      Cli.run(['-w', fixturesDirectory], function(err, output, exitCode) {
         expect(err instanceof Error).to.equal(true);
         expect(err.message).to.equal('glob');
         expect(output).to.not.exist();
+        expect(exitCode).to.not.exist();
+        done();
+      });
+    });
+
+    it('runs binary successfully', function(done) {
+      var child = ChildProcess.fork('bin/belly-button', ['-w', fixturesDirectory], {silent: true});
+
+      child.once('error', function(err) {
+        expect(err).to.not.exist();
+      });
+
+      child.once('close', function(code, signal) {
+        expect(code).to.equal(0);
+        expect(signal).to.equal(null);
+        done();
+      });
+    });
+
+    it('runs binary with error exit code', function(done) {
+      var child = ChildProcess.fork('bin/belly-button', ['--foo'], {silent: true});
+
+      child.once('error', function(err) {
+        expect(err).to.not.exist();
+      });
+
+      child.once('close', function(code, signal) {
+        expect(code).to.equal(1);
+        expect(signal).to.equal(null);
         done();
       });
     });
