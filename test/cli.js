@@ -145,6 +145,7 @@ describe('Belly Button CLI', function () {
         done();
       });
     });
+
     it('prints messages when there are lint problems', function (done) {
       StandIn.replace(ESLint.CLIEngine.prototype, 'executeOnFiles', function (stand, files) {
         stand.restore();
@@ -154,7 +155,7 @@ describe('Belly Button CLI', function () {
       Cli.run(['-w', fixturesDirectory], function (err, output, exitCode) {
         expect(err).to.not.exist();
         var out = Chalk.stripColor(output);
-        expect(out).to.equal('\nProblems in: /Home/belly-button/bar.js\n\tMissing semi colon at line [200], column [3] - (semi-colon)\n\tDangling comma at line [12], column [4] - (dangling-comma)\n\tFooBar is a weird variable name at line [331], column [1] - (weird-name)\n\nProblems in: /Home/belly-button/baz.js\n\tDangling comma at line [12], column [4] - (dangling-comma)\n\nResults\nTotal errors: 1\nTotal warnings: 1\n');
+        expect(out).to.equal('\nProblems in: /Home/belly-button/bar.js\n\tFooBar is a weird variable name at line [331], column [1] - (weird-name)\n\tDangling comma at line [12], column [4] - (dangling-comma)\n\tMissing semi colon at line [200], column [3] - (semi-colon)\n\nProblems in: /Home/belly-button/baz.js\n\tDangling comma at line [12], column [4] - (dangling-comma)\n\nResults\nTotal errors: 1\nTotal warnings: 1\n');
         done();
       });
     });
