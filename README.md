@@ -7,6 +7,7 @@
 
 Continuation Labs linter based on ESLint. See `.eslintrc` file in project root for ESLint settings.
 
+
 ## Usage
 
 `belly-button` is intended to be run from the command line. Either install `belly-button` globally (using `npm i -g belly-button`), or add it to the `devDependencies` section of your `package.json` file (preferred). Then, run the command `belly-button` from the command line, or from within your `package.json`'s `scripts` section as shown below.
@@ -27,3 +28,13 @@ This allows you to issue the command `npm run lint`, which will run JavaScript s
   - `-I` (alias `--ignore`) - Glob specifying files to be ignored by the linter. This flag can be specified multiple times to specify multiple globs. If this flag is not provided, the ignore glob default to `'node_modules/**'`.
   - `-f` (alias `--fix`) - Boolean. This flag, when `true`, causes ESLint to automatically fix any linting errors that it can. Note that not all errors can be automatically corrected. Defaults to `false`.
   - `-w` (alias `--pwd`) - String. Specifies the current working directory to use. If not specified, defaults to `process.cwd()`.
+
+## Badge
+
+If you like our style, maybe slap this badge onto your project somewhere.
+
+[![belly-button-style](https://cdn.rawgit.com/continuationlabs/belly-button/master/badge.svg)](https://github.com/continuationlabs/belly-button)
+
+```markdown
+[![belly-button-style](https://cdn.rawgit.com/continuationlabs/belly-button/master/badge.svg)](https://github.com/continuationlabs/belly-button)
+```
