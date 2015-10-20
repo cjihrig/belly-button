@@ -1,6 +1,6 @@
 {
   "name": "belly-button",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Continuation Labs linter",
   "author": "Continuation Labs <contact@continuation.io> (http://continuation.io/)",
   "main": "lib/cli.js",
@@ -17,7 +17,8 @@
     "belly-button": "./bin/belly-button.js"
   },
   "scripts": {
-    "test": "lab -v -t 100 -a code"
+    "lint": "node ./bin/belly-button -f",
+    "test": "npm run lint; lab -v -t 100 -a code"
   },
   "dependencies": {
     "bossy": "2.x.x",
