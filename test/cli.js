@@ -4,6 +4,7 @@ var Path = require('path');
 var Chalk = require('chalk');
 var Code = require('code');
 var ESLint = require('eslint');
+var Fse = require('fs-extra');
 var Glob = require('glob');
 var Lab = require('lab');
 var StandIn = require('stand-in');
@@ -19,11 +20,38 @@ Code.settings.truncateMessages = false;
 Code.settings.comparePrototypes = false;
 
 var fixturesDirectory = Path.join(__dirname, 'fixtures');
+var successDirectory = Path.join(fixturesDirectory, 'success');
+var failuresDirectory = Path.join(fixturesDirectory, 'fail');
+var tempDirectory = Path.join(process.cwd(), 'test-tmp');
 
 describe('Belly Button CLI', function () {
+  lab.after(function (done) {
+    Fse.remove(tempDirectory, done);
+  });
+
   describe('run()', function () {
-    it('successfully lints files', function (done) {
-      Cli.run(['-w', fixturesDirectory], function (err, output, exitCode) {
+    it('reports errors', function (done) {
+      var ignore = Path.join(failuresDirectory, '**');
+
+      Cli.run([
+        '-i', successDirectory,
+        '-i', ignore
+      ], function (err, output, exitCode) {
+        expect(err).to.not.exist();
+        expect(Chalk.stripColor(output)).to.match(/Total errors: 2/);
+        expect(exitCode).to.equal(1);
+        done();
+      });
+    });
+
+    it('successfully ignores files', function (done) {
+      var ignore = Path.join(failuresDirectory, '**');
+
+      Cli.run([
+        '-i', successDirectory,
+        '-i', ignore,
+        '-I', ignore
+      ], function (err, output, exitCode) {
         expect(err).to.not.exist();
         expect(output).to.exist();
         expect(exitCode).to.equal(0);
@@ -32,9 +60,12 @@ describe('Belly Button CLI', function () {
     });
 
     it('fixes linting errors when possible', function (done) {
-      // TODO: Improve this test to verify that fixes actually occur.
-      // Create a temp copy of a bad file and fix it
-      Cli.run(['-w', fixturesDirectory, '-f'], function (err, output, exitCode) {
+      var src = Path.join(failuresDirectory, 'semi.js');
+      var dest = Path.join(tempDirectory, 'semi.js');
+      Fse.ensureDirSync(tempDirectory);
+      Fse.copySync(src, dest);
+
+      Cli.run(['-w', tempDirectory, '-f'], function (err, output, exitCode) {
         expect(err).to.not.exist();
         expect(output).to.exist();
         expect(exitCode).to.equal(0);
@@ -45,7 +76,7 @@ describe('Belly Button CLI', function () {
     it('uses process.cwd() as default working directory', function (done) {
       StandIn.replace(process, 'cwd', function (stand) {
         stand.restore();
-        return fixturesDirectory;
+        return successDirectory;
       });
 
       Cli.run([], function (err, output, exitCode) {
@@ -67,14 +98,12 @@ describe('Belly Button CLI', function () {
     });
 
     it('handles ESLint errors', function (done) {
-      var executeOnFiles = ESLint.CLIEngine.prototype.executeOnFiles;
-
-      ESLint.CLIEngine.prototype.executeOnFiles = function (files) {
-        ESLint.CLIEngine.prototype.executeOnFiles = executeOnFiles;
+      StandIn.replace(ESLint.CLIEngine.prototype, 'executeOnFiles', function (stand, files) {
+        stand.restore();
         throw new Error('executeOnFiles');
-      };
+      });
 
-      Cli.run(['-w', fixturesDirectory], function (err, output, exitCode) {
+      Cli.run(['-w', successDirectory], function (err, output, exitCode) {
         expect(err instanceof Error).to.equal(true);
         expect(err.message).to.equal('executeOnFiles');
         expect(output).to.not.exist();
@@ -91,7 +120,7 @@ describe('Belly Button CLI', function () {
         this.emit('error', new Error('glob'));
       };
 
-      Cli.run(['-w', fixturesDirectory], function (err, output, exitCode) {
+      Cli.run(['-w', successDirectory], function (err, output, exitCode) {
         expect(err instanceof Error).to.equal(true);
         expect(err.message).to.equal('glob');
         expect(output).to.not.exist();
@@ -101,7 +130,7 @@ describe('Belly Button CLI', function () {
     });
 
     it('runs binary successfully', function (done) {
-      var child = ChildProcess.fork('bin/belly-button', ['-w', fixturesDirectory], {silent: true});
+      var child = ChildProcess.fork('bin/belly-button', ['-w', successDirectory], {silent: true});
 
       child.once('error', function (err) {
         expect(err).to.not.exist();
@@ -138,7 +167,7 @@ describe('Belly Button CLI', function () {
         };
       });
 
-      Cli.run(['-w', fixturesDirectory], function (err, output, exitCode) {
+      Cli.run(['-w', successDirectory], function (err, output, exitCode) {
         expect(err).to.not.exist();
         var out = Chalk.stripColor(output);
         expect(out).to.match(/total\s+(errors|warnings).+1/i);
@@ -152,7 +181,7 @@ describe('Belly Button CLI', function () {
         return FakeResults;
       });
 
-      Cli.run(['-w', fixturesDirectory], function (err, output, exitCode) {
+      Cli.run(['-w', successDirectory], function (err, output, exitCode) {
         expect(err).to.not.exist();
         var out = Chalk.stripColor(output);
         expect(out).to.equal('\nProblems in: /Home/belly-button/bar.js\n\tFooBar is a weird variable name at line [331], column [1] - (weird-name)\n\tDangling comma at line [12], column [4] - (dangling-comma)\n\tMissing semi colon at line [200], column [3] - (semi-colon)\n\nProblems in: /Home/belly-button/baz.js\n\tDangling comma at line [12], column [4] - (dangling-comma)\n\nResults\nTotal errors: 1\nTotal warnings: 1\n');

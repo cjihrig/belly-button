@@ -17,8 +17,8 @@
     "belly-button": "./bin/belly-button.js"
   },
   "scripts": {
-    "lint": "node ./bin/belly-button -f",
-    "test": "npm run lint; lab -v -t 100 -a code"
+    "lint": "node ./bin/belly-button -I 'test/fixtures/**' -I 'node_modules/**' -f",
+    "test": "npm run lint && lab -v -t 100 -a code"
   },
   "dependencies": {
     "bossy": "2.x.x",
@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "code": "1.x.x",
+    "fs-extra": "0.24.x",
     "lab": "6.x.x",
     "stand-in": "3.x.x"
   },

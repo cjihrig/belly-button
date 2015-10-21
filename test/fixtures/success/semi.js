@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports.foo = function () {
   return 42;
 };
