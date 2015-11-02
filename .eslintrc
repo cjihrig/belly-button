@@ -91,7 +91,7 @@
     "no-unused-vars": [2, { "vars": "all", "args": "none" }],
     "no-useless-call": 2,
     "no-with": 2,
-    "one-var": [2, { "initialized": "never" }],
+    "one-var": [2, "never"],
     "operator-linebreak": [2, "after", { "overrides": { "?": "before", ":": "before" } }],
     "padded-blocks": [2, "never"],
     "quotes": [2, "single", "avoid-escape"],
