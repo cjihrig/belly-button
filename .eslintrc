@@ -92,7 +92,7 @@
     "no-useless-call": 2,
     "no-with": 2,
     "one-var": [2, "never"],
-    "operator-linebreak": [2, "after", { "overrides": { "?": "before", ":": "before" } }],
+    "operator-linebreak": [2, "after"],
     "padded-blocks": [2, "never"],
     "quotes": [2, "single", "avoid-escape"],
     "radix": 2,
