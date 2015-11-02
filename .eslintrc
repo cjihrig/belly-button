@@ -90,6 +90,7 @@
     "no-unneeded-ternary": [2, { "defaultAssignment": false }],
     "no-unreachable": 2,
     "no-unused-vars": [2, { "vars": "all", "args": "none" }],
+    "no-use-before-define": [2, "nofunc"],
     "no-useless-call": 2,
     "no-with": 2,
     "one-var": [2, "never"],
