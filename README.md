@@ -4,7 +4,7 @@
 [![Build Status via Travis CI](https://travis-ci.org/continuationlabs/belly-button.svg?branch=master)](https://travis-ci.org/continuationlabs/belly-button)
 ![Dependencies](http://img.shields.io/david/continuationlabs/belly-button.svg)
 
-Continuation Labs linter based on ESLint. See `.eslintrc` file in project root for ESLint settings.
+Continuation Labs linter based on ESLint. See `.eslintrc.js` file in project root for ESLint settings.
 
 
 ## Usage
