@@ -30,7 +30,7 @@
   "devDependencies": {
     "code": "2.x.x",
     "fs-extra": "0.26.x",
-    "lab": "8.x.x",
+    "lab": "10.x.x",
     "stand-in": "3.x.x"
   },
   "keywords": [

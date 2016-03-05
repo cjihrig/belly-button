@@ -188,5 +188,36 @@ describe('Belly Button CLI', function () {
         done();
       });
     });
+
+    it('defaults to belly-button style', function (done) {
+      var lintFile = Path.join(fixturesDirectory, 'config', 'yoda.js');
+      var child = ChildProcess.fork('bin/belly-button', ['-i', lintFile], {silent: true});
+
+      child.once('error', function (err) {
+        expect(err).to.not.exist();
+      });
+
+      child.once('close', function (code, signal) {
+        expect(code).to.equal(1);
+        expect(signal).to.equal(null);
+        done();
+      });
+    });
+
+    it('can override config file', function (done) {
+      var configFile = Path.join(fixturesDirectory, 'config', '.eslintrc.js');
+      var lintFile = Path.join(fixturesDirectory, 'config', 'yoda.js');
+      var child = ChildProcess.fork('bin/belly-button', ['-c', configFile, '-i', lintFile], {silent: true});
+
+      child.once('error', function (err) {
+        expect(err).to.not.exist();
+      });
+
+      child.once('close', function (code, signal) {
+        expect(code).to.equal(0);
+        expect(signal).to.equal(null);
+        done();
+      });
+    });
   });
 });
