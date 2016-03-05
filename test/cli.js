@@ -205,8 +205,8 @@ describe('Belly Button CLI', function () {
     });
 
     it('can override config file', function (done) {
-      var configFile = Path.join(__dirname, 'fixtures', 'config', '.eslintrc.js');
-      var lintFile = Path.join(__dirname, 'fixtures', 'config', 'yoda.js');
+      var configFile = Path.join(fixturesDirectory, 'config', '.eslintrc.js');
+      var lintFile = Path.join(fixturesDirectory, 'config', 'yoda.js');
       var child = ChildProcess.fork('bin/belly-button', ['-c', configFile, '-i', lintFile], {silent: true});
 
       child.once('error', function (err) {
