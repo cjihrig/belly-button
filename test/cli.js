@@ -190,7 +190,7 @@ describe('Belly Button CLI', function () {
     });
 
     it('defaults to belly-button style', function (done) {
-      var lintFile = Path.join(__dirname, 'fixtures', 'config', 'yoda.js');
+      var lintFile = Path.join(fixturesDirectory, 'config', 'yoda.js');
       var child = ChildProcess.fork('bin/belly-button', ['-i', lintFile], {silent: true});
 
       child.once('error', function (err) {
