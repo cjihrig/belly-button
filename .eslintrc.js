@@ -107,7 +107,6 @@ module.exports = {
     'no-useless-escape': 'error',
     'no-whitespace-before-property': 'error',
     'no-with': 'error',
-    'object-curly-newline': ['error', { 'multiline': true }],
     'object-property-newline': ['error', { 'allowMultiplePropertiesPerLine': true }],
     'one-var': ['error', 'never'],
     'one-var-declaration-per-line': ['error', 'always'],
