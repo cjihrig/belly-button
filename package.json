@@ -20,6 +20,9 @@
     "lint": "node ./bin/belly-button -I 'test/fixtures/**' -I 'node_modules/**' -f",
     "test": "npm run lint && lab -v -t 100 -a code"
   },
+  "engines": {
+    "node": ">=4.0.0"
+  },
   "dependencies": {
     "bossy": "3.x.x",
     "chalk": "1.1.x",
