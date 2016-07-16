@@ -1,6 +1,6 @@
 {
   "name": "belly-button",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "description": "Continuation Labs linter",
   "author": "Continuation Labs <contact@continuation.io> (http://continuation.io/)",
   "main": "lib/cli.js",
