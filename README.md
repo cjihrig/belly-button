@@ -26,6 +26,7 @@ This allows you to issue the command `npm run lint`, which will run JavaScript s
   - `-i` (alias `--input`) - Glob specifying files to lint. This flag can be specified multiple times to specify multiple globs. If this flag is not provided, the inputs default to `'**/*.js'`.
   - `-I` (alias `--ignore`) - Glob specifying files to be ignored by the linter. This flag can be specified multiple times to specify multiple globs. If this flag is not provided, the ignore glob default to `'node_modules/**'`.
   - `-f` (alias `--fix`) - Boolean. This flag, when `true`, causes ESLint to automatically fix any linting errors that it can. Note that not all errors can be automatically corrected. Defaults to `false`.
+  - `-C` (alias `--cache`) - Boolean. When, `true`, enables ESLint's result caching feature. This can improve linting times on subsequent runs. Defaults to `true`.
   - `-w` (alias `--pwd`) - String. Specifies the current working directory to use. If not specified, defaults to `process.cwd()`.
 
 ## Badge
