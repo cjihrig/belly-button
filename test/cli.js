@@ -2,7 +2,6 @@
 var ChildProcess = require('child_process');
 var Path = require('path');
 var Chalk = require('chalk');
-var Code = require('code');
 var ESLint = require('eslint');
 var Fse = require('fs-extra');
 var Glob = require('glob');
@@ -12,12 +11,12 @@ var Cli = require('../lib/cli');
 var FakeResults = require('./fixtures/fake-results');
 
 var lab = exports.lab = Lab.script();
-var expect = Code.expect;
+var expect = lab.expect;
 var describe = lab.describe;
 var it = lab.it;
 
-Code.settings.truncateMessages = false;
-Code.settings.comparePrototypes = false;
+Lab.assertions.settings.truncateMessages = false;
+Lab.assertions.settings.comparePrototypes = false;
 
 var fixturesDirectory = Path.join(__dirname, 'fixtures');
 var successDirectory = Path.join(fixturesDirectory, 'success');

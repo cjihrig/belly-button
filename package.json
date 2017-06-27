@@ -18,7 +18,7 @@
   },
   "scripts": {
     "lint": "node ./bin/belly-button -I 'test/fixtures/**' -I 'node_modules/**' -f",
-    "test": "npm run lint && lab -v -t 100 -a code"
+    "test": "npm run lint && lab -v -t 100"
   },
   "engines": {
     "node": ">=4.0.0"
@@ -26,14 +26,13 @@
   "dependencies": {
     "bossy": "3.x.x",
     "chalk": "1.1.x",
-    "eslint": "3.x.x",
+    "eslint": "4.x.x",
     "glob": "7.x.x",
     "insync": "2.x.x"
   },
   "devDependencies": {
-    "code": "3.x.x",
-    "fs-extra": "0.30.x",
-    "lab": "11.x.x",
+    "fs-extra": "3.x.x",
+    "lab": "14.x.x",
     "stand-in": "4.x.x"
   },
   "keywords": [
