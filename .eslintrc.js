@@ -71,7 +71,7 @@ module.exports = {
     'no-labels': ['error', { 'allowLoop': true, 'allowSwitch': true }],
     'no-lone-blocks': 'error',
     'no-mixed-spaces-and-tabs': 'error',
-    'no-multi-spaces': 'error',
+    'no-multi-spaces': ['error', { 'ignoreEOLComments': true }],
     'no-multi-str': 'error',
     'no-multiple-empty-lines': ['error', { 'max': 2 }],
     'no-new': 'error',
