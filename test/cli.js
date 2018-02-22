@@ -1,27 +1,27 @@
 'use strict';
-var ChildProcess = require('child_process');
-var Path = require('path');
-var Chalk = require('chalk');
-var ESLint = require('eslint');
-var Fse = require('fs-extra');
-var Glob = require('glob');
-var Lab = require('lab');
-var StandIn = require('stand-in');
-var Cli = require('../lib/cli');
-var FakeResults = require('./fixtures/fake-results');
+const ChildProcess = require('child_process');
+const Path = require('path');
+const ESLint = require('eslint');
+const Fse = require('fs-extra');
+const Glob = require('glob');
+const Lab = require('lab');
+const StandIn = require('stand-in');
+const Cli = require('../lib/cli');
+const FakeResults = require('./fixtures/fake-results');
+const stripAnsi = require('strip-ansi');
 
-var lab = exports.lab = Lab.script();
-var expect = lab.expect;
-var describe = lab.describe;
-var it = lab.it;
+const lab = exports.lab = Lab.script();
+const expect = lab.expect;
+const describe = lab.describe;
+const it = lab.it;
 
 Lab.assertions.settings.truncateMessages = false;
 Lab.assertions.settings.comparePrototypes = false;
 
-var fixturesDirectory = Path.join(__dirname, 'fixtures');
-var successDirectory = Path.join(fixturesDirectory, 'success');
-var failuresDirectory = Path.join(fixturesDirectory, 'fail');
-var tempDirectory = Path.join(process.cwd(), 'test-tmp');
+const fixturesDirectory = Path.join(__dirname, 'fixtures');
+const successDirectory = Path.join(fixturesDirectory, 'success');
+const failuresDirectory = Path.join(fixturesDirectory, 'fail');
+const tempDirectory = Path.join(process.cwd(), 'test-tmp');
 
 describe('Belly Button CLI', function () {
   lab.after(function (done) {
@@ -30,21 +30,21 @@ describe('Belly Button CLI', function () {
 
   describe('run()', function () {
     it('reports errors', function (done) {
-      var ignore = Path.join(failuresDirectory, '**');
+      const ignore = Path.join(failuresDirectory, '**');
 
       Cli.run([
         '-i', successDirectory,
         '-i', ignore
       ], function (err, output, exitCode) {
         expect(err).to.not.exist();
-        expect(Chalk.stripColor(output)).to.match(/Total errors: 2/);
+        expect(stripAnsi(output)).to.match(/Total errors: 2/);
         expect(exitCode).to.equal(1);
         done();
       });
     });
 
     it('successfully ignores files', function (done) {
-      var ignore = Path.join(failuresDirectory, '**');
+      const ignore = Path.join(failuresDirectory, '**');
 
       Cli.run([
         '-i', successDirectory,
@@ -59,8 +59,8 @@ describe('Belly Button CLI', function () {
     });
 
     it('fixes linting errors when possible', function (done) {
-      var src = Path.join(failuresDirectory, 'semi.js');
-      var dest = Path.join(tempDirectory, 'semi.js');
+      const src = Path.join(failuresDirectory, 'semi.js');
+      const dest = Path.join(tempDirectory, 'semi.js');
       Fse.ensureDirSync(tempDirectory);
       Fse.copySync(src, dest);
 
@@ -112,7 +112,7 @@ describe('Belly Button CLI', function () {
     });
 
     it('handles glob errors', function (done) {
-      var glob = Glob.Glob.prototype._process;
+      const glob = Glob.Glob.prototype._process;
 
       Glob.Glob.prototype._process = function (pattern, index, inGlobStar, callback) {
         Glob.Glob.prototype._process = glob;
@@ -129,7 +129,7 @@ describe('Belly Button CLI', function () {
     });
 
     it('runs binary successfully', function (done) {
-      var child = ChildProcess.fork('bin/belly-button', ['-w', successDirectory], {silent: true});
+      const child = ChildProcess.fork('bin/belly-button', ['-w', successDirectory], {silent: true});
 
       child.once('error', function (err) {
         expect(err).to.not.exist();
@@ -143,7 +143,7 @@ describe('Belly Button CLI', function () {
     });
 
     it('runs binary with error exit code', function (done) {
-      var child = ChildProcess.fork('bin/belly-button', ['--foo'], {silent: true});
+      const child = ChildProcess.fork('bin/belly-button', ['--foo'], {silent: true});
 
       child.once('error', function (err) {
         expect(err).to.not.exist();
@@ -168,7 +168,7 @@ describe('Belly Button CLI', function () {
 
       Cli.run(['-w', successDirectory], function (err, output, exitCode) {
         expect(err).to.not.exist();
-        var out = Chalk.stripColor(output);
+        const out = stripAnsi(output);
         expect(out).to.match(/total\s+(errors|warnings).+1/i);
         done();
       });
@@ -182,15 +182,15 @@ describe('Belly Button CLI', function () {
 
       Cli.run(['-w', successDirectory], function (err, output, exitCode) {
         expect(err).to.not.exist();
-        var out = Chalk.stripColor(output);
+        const out = stripAnsi(output);
         expect(out).to.equal('\nProblems in: /Home/belly-button/bar.js\n\tFooBar is a weird variable name at line [331], column [1] - (weird-name)\n\tDangling comma at line [12], column [4] - (dangling-comma)\n\tMissing semi colon at line [200], column [3] - (semi-colon)\n\nProblems in: /Home/belly-button/baz.js\n\tDangling comma at line [12], column [4] - (dangling-comma)\n\nResults\nTotal errors: 1\nTotal warnings: 1\n');
         done();
       });
     });
 
     it('defaults to belly-button style', function (done) {
-      var lintFile = Path.join(fixturesDirectory, 'config', 'yoda.js');
-      var child = ChildProcess.fork('bin/belly-button', ['-i', lintFile], {silent: true});
+      const lintFile = Path.join(fixturesDirectory, 'config', 'yoda.js');
+      const child = ChildProcess.fork('bin/belly-button', ['-i', lintFile], {silent: true});
 
       child.once('error', function (err) {
         expect(err).to.not.exist();
@@ -204,9 +204,9 @@ describe('Belly Button CLI', function () {
     });
 
     it('can override config file', function (done) {
-      var configFile = Path.join(fixturesDirectory, 'config', '.eslintrc.js');
-      var lintFile = Path.join(fixturesDirectory, 'config', 'yoda.js');
-      var child = ChildProcess.fork('bin/belly-button', ['-c', configFile, '-i', lintFile], {silent: true});
+      const configFile = Path.join(fixturesDirectory, 'config', '.eslintrc.js');
+      const lintFile = Path.join(fixturesDirectory, 'config', 'yoda.js');
+      const child = ChildProcess.fork('bin/belly-button', ['-c', configFile, '-i', lintFile], {silent: true});
 
       child.once('error', function (err) {
         expect(err).to.not.exist();
