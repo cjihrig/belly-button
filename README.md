@@ -2,7 +2,7 @@
 
 [![Current Version](https://img.shields.io/npm/v/belly-button.svg)](https://www.npmjs.org/package/belly-button)
 [![Build Status via Travis CI](https://travis-ci.org/continuationlabs/belly-button.svg?branch=master)](https://travis-ci.org/continuationlabs/belly-button)
-![Dependencies](http://img.shields.io/david/continuationlabs/belly-button.svg)
+[![belly-button-style](https://img.shields.io/badge/eslint-bellybutton-4B32C3.svg)](https://github.com/continuationlabs/belly-button)
 
 Continuation Labs linter based on ESLint. See `.eslintrc.js` file in project root for ESLint settings.
 
