@@ -8,10 +8,7 @@ module.exports = {
     node: true
   },
   parserOptions: {
-    ecmaVersion: 8,
-    ecmaFeatures: {
-      experimentalObjectRestSpread: true
-    }
+    ecmaVersion: 2018
   },
   rules: {
     'accessor-pairs': 'error',

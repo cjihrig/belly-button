@@ -1,16 +1,16 @@
 {
   "name": "belly-button",
   "version": "4.1.1",
-  "description": "Continuation Labs linter",
-  "author": "Continuation Labs <contact@continuation.io> (http://continuation.io/)",
+  "description": "the best souce of linting",
+  "author": "Colin J. Ihrig <cjihrig@gmail.com> (http://www.cjihrig.com/)",
   "main": "lib/cli.js",
-  "homepage": "https://github.com/continuationlabs/belly-button",
+  "homepage": "https://github.com/cjihrig/belly-button",
   "repository": {
     "type": "git",
-    "url": "https://github.com/continuationlabs/belly-button.git"
+    "url": "https://github.com/cjihrig/belly-button.git"
   },
   "bugs": {
-    "url": "https://github.com/continuationlabs/belly-button/issues"
+    "url": "https://github.com/cjihrig/belly-button/issues"
   },
   "license": "MIT",
   "bin": {
@@ -21,18 +21,19 @@
     "test": "npm run lint && lab -v -t 100"
   },
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=8.0.0"
   },
   "dependencies": {
-    "bossy": "3.x.x",
+    "bossy": "4.x.x",
     "chalk": "1.1.x",
-    "eslint": "4.x.x",
+    "eslint": "5.x.x",
     "glob": "7.x.x",
     "insync": "2.x.x"
   },
   "devDependencies": {
-    "fs-extra": "3.x.x",
-    "lab": "14.x.x",
+    "cb-barrier": "1.x.x",
+    "fs-extra": "7.x.x",
+    "lab": "16.x.x",
     "stand-in": "4.x.x"
   },
   "keywords": [
