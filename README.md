@@ -9,7 +9,7 @@ Pre-canned linting setup based on ESLint. See `.eslintrc.js` file in project roo
 
 ## Usage
 
-`belly-button` is intended to be run from the command line. Either install `belly-button` globally (using `npm i -g belly-button`), or add it to the `devDependencies` section of your `package.json` file (preferred). Then, run the command `belly-button` from the command line, or from within your `package.json`'s `scripts` section as shown below.
+`belly-button` is intended to be run from the command line, or from within your `package.json`'s `scripts` section as shown below.
 
 ```
 "scripts": {
