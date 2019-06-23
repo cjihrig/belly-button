@@ -1,6 +1,6 @@
 {
   "name": "belly-button",
-  "version": "5.0.0",
+  "version": "6.0.0",
   "description": "the best souce of linting",
   "author": "Colin J. Ihrig <cjihrig@gmail.com> (http://www.cjihrig.com/)",
   "main": "lib/cli.js",
