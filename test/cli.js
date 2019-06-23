@@ -3,12 +3,12 @@ const Assert = require('assert');
 const ChildProcess = require('child_process');
 const Path = require('path');
 const Barrier = require('cb-barrier');
-const Chalk = require('chalk');
 const ESLint = require('eslint');
 const Fse = require('fs-extra');
 const Glob = require('glob');
 const Lab = require('@hapi/lab');
 const StandIn = require('stand-in');
+const StripAnsi = require('strip-ansi');
 const Cli = require('../lib/cli');
 const FakeResults = require('./fixtures/fake-results');
 const { describe, it, after } = exports.lab = Lab.script();
@@ -39,7 +39,7 @@ describe('Belly Button CLI', () => {
         '-i', ignore
       ], (err, output, exitCode) => {
         Assert.ifError(err);
-        Assert(/Total errors: 2/.test(Chalk.stripColor(output)));
+        Assert(/Total errors: 2/.test(StripAnsi(output)));
         Assert.strictEqual(exitCode, 1);
         barrier.pass();
       });
@@ -173,7 +173,7 @@ describe('Belly Button CLI', () => {
 
       Cli.run(['-w', successDirectory], (err, output, exitCode) => {
         Assert.ifError(err);
-        Assert(/total\s+(errors|warnings).+1/i.test(Chalk.stripColor(output)));
+        Assert(/total\s+(errors|warnings).+1/i.test(StripAnsi(output)));
         barrier.pass();
       });
 
@@ -189,7 +189,7 @@ describe('Belly Button CLI', () => {
 
       Cli.run(['-w', successDirectory], (err, output, exitCode) => {
         Assert.ifError(err);
-        const out = Chalk.stripColor(output);
+        const out = StripAnsi(output);
         const msg = '\nProblems in: /Home/belly-button/bar.js\n\tFooBar is a weird variable name at line [331], column [1] - (weird-name)\n\tDangling comma at line [12], column [4] - (dangling-comma)\n\tMissing semi colon at line [200], column [3] - (semi-colon)\n\nProblems in: /Home/belly-button/baz.js\n\tDangling comma at line [12], column [4] - (dangling-comma)\n\nResults\nTotal errors: 1\nTotal warnings: 1\n';
         Assert.strictEqual(out, msg);
         barrier.pass();
