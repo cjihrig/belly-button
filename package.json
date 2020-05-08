@@ -21,21 +21,21 @@
     "test": "npm run lint && lab -v -t 100"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=10.0.0"
   },
   "dependencies": {
-    "@hapi/bossy": "4.x.x",
-    "chalk": "2.4.x",
+    "@hapi/bossy": "5.x.x",
+    "chalk": "4.x.x",
     "eslint": "6.x.x",
     "glob": "7.x.x",
     "insync": "2.x.x"
   },
   "devDependencies": {
-    "@hapi/lab": "19.x.x",
+    "@hapi/lab": "22.x.x",
     "cb-barrier": "1.x.x",
-    "fs-extra": "8.x.x",
+    "fs-extra": "9.x.x",
     "stand-in": "4.x.x",
-    "strip-ansi": "5.x.x"
+    "strip-ansi": "6.x.x"
   },
   "keywords": [
     "belly-button",
