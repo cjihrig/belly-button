@@ -1,12 +1,16 @@
 #!/usr/bin/env node
 'use strict';
 
-require('../lib/cli').run(process.argv, (err, output, code) => {
-  if (err) {
+async function main() {
+  try {
+    const [output, code] = await require('../lib/cli').run(process.argv);
+
+    console.log(output);
+    process.exit(code);
+  } catch (err) {
     console.error(err.message);
     process.exit(1);
   }
+}
 
-  console.log(output);
-  process.exit(code);
-});
+main();
