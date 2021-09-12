@@ -7,6 +7,7 @@ module.exports = {
     es2021: true,
     node: true
   },
+  parserOptions: { ecmaVersion: 2022 },
   reportUnusedDisableDirectives: true,
   rules: {
     'accessor-pairs': 'error',
