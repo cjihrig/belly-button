@@ -17,7 +17,7 @@
     "belly-button": "./bin/belly-button.js"
   },
   "scripts": {
-    "lint": "node ./bin/belly-button -I 'test/fixtures/**' -I 'node_modules/**' -f",
+    "lint": "node ./bin/belly-button -I \"test/fixtures/**\" -I \"node_modules/**\" -f",
     "test": "npm run lint && lab -v"
   },
   "engines": {
