@@ -4,7 +4,7 @@ module.exports = {
   root: true,
   env: {
     browser: false,
-    es2021: true,
+    es2022: true,
     node: true
   },
   parserOptions: { ecmaVersion: 2022 },
@@ -45,6 +45,7 @@ module.exports = {
     'no-cond-assign': 'error',
     'no-confusing-arrow': 'error',
     'no-const-assign': 'error',
+    'no-constant-binary-expression': 'error',
     'no-constant-condition': 'error',
     'no-constructor-return': 'error',
     'no-control-regex': 'error',
@@ -116,6 +117,7 @@ module.exports = {
     'no-unsafe-negation': 'error',
     'no-unsafe-optional-chaining': 'error',
     'no-unused-expressions': 'error',
+    'no-unused-private-class-members': 'error',
     'no-unused-vars': ['error', { 'vars': 'all', 'args': 'none' }],
     'no-use-before-define': ['error', 'nofunc'],
     'no-useless-backreference': 'error',
